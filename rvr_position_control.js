@@ -90,8 +90,8 @@ async function startProgram() {
 /*
 
 let setpoint = 100;
-let k = 3.0;
-let kI = 0.5;
+let k = 1.5;
+let kI = 0.05;
 var accumulatedError = 0;
 
 async function startProgram() {
@@ -124,10 +124,9 @@ async function startProgram() {
 /*
 
 let setpoint = 100;
-let k = 3.0;
+let k = 3;
 let kD = 1.5;
 var oldError = 0;
-
 
 async function startProgram() {
 	while(true){
@@ -163,9 +162,9 @@ async function startProgram() {
 
 /*
 let setpoint = 100;
-let k = 3.0;
+let k = 2.0;
 let kD = 0.5;
-let kI = 0.1;
+let kI = 0.01;
 var accumulatedError = 0;
 var oldError = 0;
 
@@ -179,7 +178,7 @@ async function startProgram() {
 		accumulatedError = error + accumulatedError
 		
 		
-		var output = k*error - kD*changeError + kI*accumulatedError;
+		var output = k*error + kD*changeError + kI*accumulatedError;
 		oldError = error
 		
 		if(output >255){
