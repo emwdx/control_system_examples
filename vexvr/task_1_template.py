@@ -67,16 +67,14 @@ def driveDiagonalDistance(setpoint,duration):
 
 # Add project code in "main"
 def main():
-    # You should not change much in the code below. This code turns to a heading of 90, runs the function to drive along x, turn to 0, 
-    # runs the function to drive along y, turns to a heading of 45 degrees, and then runs the diagonal distance function.
-   
+    target = generateRandomPoint()
+    brain.print("target location is x = ( " + str(target[0]) + " , " + str(target[1]) + " )" )
     pen.move(DOWN)
     drivetrain.turn_to_heading(90,DEGREES,wait=True)
-    driveXDistance(0,4)
+    driveXDistance(target[0],4)
     drivetrain.turn_to_heading(0,DEGREES,wait=True)
-    driveYDistance(0,4)
-    drivetrain.turn_to_heading(45,DEGREES,wait=True)
-    driveUsingDistanceSensor(400,5)
-    
+    driveYDistance(target[1],4)
+    drivetrain.turn_to_heading(90,DEGREES,wait=True)
+    driveUsingDistanceSensor(200,5)
 # VR threads — Do not delete
 vr_thread(main())
