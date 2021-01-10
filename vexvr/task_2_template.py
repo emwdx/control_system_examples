@@ -74,6 +74,7 @@ def main():
     # You should not change much in the code below. This code chooses a random point, puts the pen down,
     # and then calls the above functions to move to the point, turn to face the right wall, and then move the specified distance away.
     target = generateRandomPoint()
+    brain.print("target location is x = ( " + str(target[0]) + " , " + str(target[1]) + " )" )
     pen.move(DOWN)
     drivetrain.turn_to_heading(90,DEGREES,wait=True)
     driveXDistance(target[0],4)
@@ -83,3 +84,4 @@ def main():
     driveUsingDistanceSensor(200,5)
 # VR threads — Do not delete
 vr_thread(main())
+
