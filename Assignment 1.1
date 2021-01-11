@@ -1,0 +1,85 @@
+from math import *
+from random import randint
+
+def driveXDistance(setpoint,duration):
+    # on/off
+    # reset the timer
+    brain.timer_reset()
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        xLocation = location.position(X, MM)
+        # Your code goes here!
+        if xLocation < setpoint:
+            drivetrain.drive(FORWARD)
+        elif xLocation > setpoint:
+            drivetrain.drive(REVERSE)
+        else:
+            drivetrain.stop()
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+def driveYDistance(setpoint,duration):
+    # propotional
+    # reset the timer
+    brain.timer_reset()
+    # max speed
+    maxSpeed = 100
+    # constant value used in speed
+    k = 1
+
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        # Your code goes here!
+        # differece between destination and current y location
+        yLocation = location.position(Y, MM)
+        error = setpoint - yLocation
+        speed = k * error
+        # speed limit
+        if speed > maxSpeed:
+            speed = maxSpeed
+        elif speed < -maxSpeed:
+            speed = -maxSpeed
+        # drive
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(speed, PERCENT)
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+
+def driveDiagonalDistance(setpoint,duration):
+    # reset the timer
+    brain.timer_reset()
+    
+
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        # Your code goes here!
+        
+
+
+
+
+
+
+
+
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+# Add project code in "main"
+def main():
+    pen.move(DOWN)
+    drivetrain.turn_to_heading(90,DEGREES,wait=True)
+    driveXDistance(0,3)
+    drivetrain.turn_to_heading(0,DEGREES,wait=True)
+    driveYDistance(0,3)
+    drivetrain.turn_to_heading(45,DEGREES,wait=True)
+    driveDiagDistance(400,4)
+# VR threads — Do not delete
+vr_thread(main())
