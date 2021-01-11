@@ -1,39 +1,10 @@
-from math import *
-from random import randint
-
-def driveXDistance(setpoint,duration):
-    # reset the timer
-    brain.timer_reset()
-
-    # loop while the timer is less than the duration input of the function.
-    while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
-        
-
-
-
-
-
-
-
-
-
-        #VEXCode VR requires that we have a small pause in any loop we run.    
-        wait(1,MSEC)
-    drivetrain.stop()
-
-def driveYDistance(setpoint,duration):
-    # reset the timer
-    brain.timer_reset()
-
-    # loop while the timer is less than the duration input of the function.
-    while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
-        
-
-
-
-
+currentDiagYLocation = location.position(Y,MM)
+        if (currentDiagYLocation < setpoint - tolerance):
+            drivetrain.drive(FORWARD)
+        elif (currentDiagYLocation > setpoint + tolerance):
+            drivetrain.drive(REVERSE)
+        else:
+            drivetrain.stop()
 
 
 
