@@ -5,65 +5,66 @@ def generateRandomPoint():
     xCoordinate = randint(-4,8)*100
     yCoordinate = randint(-4,8)*100
     return [xCoordinate,yCoordinate]
+
 def driveXDistance(setpoint,duration):
+    speed = 100
+    tolerance = 2
     # reset the timer
     brain.timer_reset()
+    drivetrain.set_drive_velocity(speed, PERCENT)
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
-        
-
-
-
-
-
-
-
-
+        currentXLocation = location.position(X,MM)
+        if(currentXLocation < xCoordinate - tolerance):
+            drivetrain.drive(FORWARD)
+        elif (currentXLocation > xCoordinate + tolerance):
+            drivetrain.drive(REVERSE)
+        else:
+            drivetrain.stop()
 
         #VEXCode VR requires that we have a small pause in any loop we run.    
         wait(1,MSEC)
     drivetrain.stop()
 
 def driveYDistance(setpoint,duration):
+    speed = 100
+    tolerance = 2
+    drivetrain.set_drive_velocity(speed,PERCENT)
     # reset the timer
     brain.timer_reset()
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
-        
-
-
-
-
-
-
-
-
+        currentYLocation = location.position(Y,MM)
+        if( currentYLocation < yCoordinate - tolerance):
+            drivetrain.drive(FORWARD)
+        elif (currentYLocation > yCoordinate + tolerance):
+            drivetrain.drive(REVERSE)
+        else:
+            drivetrain.stop()
 
         #VEXCode VR requires that we have a small pause in any loop we run.    
         wait(1,MSEC)
     drivetrain.stop()
 
-
 def driveUsingDistanceSensor(setpoint,duration):
+    speed = 100
+    tolerance = 2
+    drivetrain.set_drive_velocity(speed,PERCENT)
     # reset the timer
     brain.timer_reset()
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
         # Your code goes here!
-        
-
-
-
-
-
-
-
-
+        currentXCoordinate = xCoordinate
+        if(xCoordinate < 200 - tolerance):
+            drivetrain.drive(FORWARD)
+        elif (xCoordinate > 200 + tolerance):
+            drivetrain.drive(REVERSE)
+        else:
+            drivetrain.stop()
 
         #VEXCode VR requires that we have a small pause in any loop we run.    
         wait(1,MSEC)
@@ -84,4 +85,3 @@ def main():
     driveUsingDistanceSensor(200,5)
 # VR threads — Do not delete
 vr_thread(main())
-
