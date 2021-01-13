@@ -1,0 +1,87 @@
+from math import *
+from random import randint
+
+def driveXDistance(setpoint,duration):
+    # reset the timer
+    brain.timer_reset()
+    maxspeed = 100
+    minspeed = -100
+    k = 1.5
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        # Your code goes here!
+        x_location = location.position(X, MM)
+        error = setpoint - x_location
+        speed = error * k
+        if speed > maxspeed:
+            speed = maxspeed
+        elif speed < minspeed:
+            speed = minspeed
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(speed, PERCENT)
+        
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+def driveYDistance(setpoint,duration):
+    # reset the timer
+    brain.timer_reset()
+    maxspeed = 100
+    minspeed = -100
+    k = 1.5
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        # Your code goes here!
+        y_location = location.position(Y, MM)
+        error = setpoint - y_location
+        speed = error * k
+        if speed > maxspeed:
+            speed = maxspeed
+        elif speed < minspeed:
+            speed = minspeed
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(speed, PERCENT)
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+
+def driveDiagonalDistance(setpoint,duration):
+    # reset the timer
+    brain.timer_reset()
+
+    maxspeed = 100
+    minspeed = -100
+    k = 1.5
+
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        # Your code goes here!
+        x_location = location.position(X, MM)
+        error = setpoint - x_location
+        speed = error * k
+        if speed > maxspeed:
+            speed = maxspeed
+        elif speed < minspeed:
+            speed = minspeed
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(speed, PERCENT)
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+# Add project code in "main"
+def main():
+    pen.move(DOWN)
+    drivetrain.turn_to_heading(90,DEGREES,wait=True)
+    driveXDistance(0,3)
+    drivetrain.turn_to_heading(0,DEGREES,wait=True)
+    driveYDistance(0,3)
+    drivetrain.turn_to_heading(45,DEGREES,wait=True)
+    driveDiagonalDistance(400,4)
+# VR threads — Do not delete
+vr_thread(main())
