@@ -7,8 +7,8 @@ def generateRandomPoint():
     return [xCoordinate,yCoordinate]
 
 def driveXDistance(setpoint,duration):
-    speed = 100
-    tolerance = 2
+    speed = 80
+    tolerance = 3
     # reset the timer
     brain.timer_reset()
     drivetrain.set_drive_velocity(speed, PERCENT)
@@ -16,9 +16,9 @@ def driveXDistance(setpoint,duration):
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
         currentXLocation = location.position(X,MM)
-        if(currentXLocation < xCoordinate - tolerance):
+        if(currentXLocation < setpoint - tolerance):
             drivetrain.drive(FORWARD)
-        elif (currentXLocation > xCoordinate + tolerance):
+        elif (currentXLocation > setpoint + tolerance):
             drivetrain.drive(REVERSE)
         else:
             drivetrain.stop()
@@ -28,8 +28,8 @@ def driveXDistance(setpoint,duration):
     drivetrain.stop()
 
 def driveYDistance(setpoint,duration):
-    speed = 100
-    tolerance = 2
+    speed = 80
+    tolerance = 3
     drivetrain.set_drive_velocity(speed,PERCENT)
     # reset the timer
     brain.timer_reset()
@@ -37,9 +37,9 @@ def driveYDistance(setpoint,duration):
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
         currentYLocation = location.position(Y,MM)
-        if( currentYLocation < yCoordinate - tolerance):
+        if(currentYLocation < setpoint - tolerance):
             drivetrain.drive(FORWARD)
-        elif (currentYLocation > yCoordinate + tolerance):
+        elif (currentYLocation > setpoint + tolerance):
             drivetrain.drive(REVERSE)
         else:
             drivetrain.stop()
@@ -49,8 +49,8 @@ def driveYDistance(setpoint,duration):
     drivetrain.stop()
 
 def driveUsingDistanceSensor(setpoint,duration):
-    speed = 100
-    tolerance = 2
+    speed = 80
+    tolerance = 3
     drivetrain.set_drive_velocity(speed,PERCENT)
     # reset the timer
     brain.timer_reset()
@@ -58,11 +58,10 @@ def driveUsingDistanceSensor(setpoint,duration):
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
         # Your code goes here!
-        currentXCoordinate = xCoordinate
-        if(xCoordinate < 200 - tolerance):
-            drivetrain.drive(FORWARD)
-        elif (xCoordinate > 200 + tolerance):
+        if distance.get_distance(MM) < 200 - tolerance:
             drivetrain.drive(REVERSE)
+        elif distance.get_distance(MM) > 200 + tolerance:
+            drivetrain.drive(FORWARD)
         else:
             drivetrain.stop()
 
