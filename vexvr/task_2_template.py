@@ -6,13 +6,26 @@ def generateRandomPoint():
     yCoordinate = randint(-4,8)*100
     return [xCoordinate,yCoordinate]
 def driveXDistance(setpoint,duration):
+    maxSpeed = 100
+    k = 1
     # reset the timer
     brain.timer_reset()
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
         # Your code goes here!
-        
+        currentXLocation = location.position(X,MM)
+        error = setpoint - currentXLocation
+        output = k*error
+        # Ensure the output is not more than the maximum speed
+        if(output>maxSpeed):
+            output = maxSpeed
+        elif(output<-maxSpeed):
+            output = -maxSpeed
+        brain.print(output)
+        brain.new_line()
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(output,PERCENT)
 
 
 
@@ -27,13 +40,26 @@ def driveXDistance(setpoint,duration):
     drivetrain.stop()
 
 def driveYDistance(setpoint,duration):
+    maxSpeed = 100
+    k = 1
     # reset the timer
     brain.timer_reset()
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
         # Your code goes here!
-        
+        currentYLocation = location.position(Y,MM)
+        error = setpoint - currentYLocation
+        output = k*error
+        # Ensure the output is not more than the maximum speed
+        if(output>maxSpeed):
+            output = maxSpeed
+        elif(output<-maxSpeed):
+            output = -maxSpeed
+        brain.print(output)
+        brain.new_line()
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(output,PERCENT)
 
 
 
@@ -49,13 +75,26 @@ def driveYDistance(setpoint,duration):
 
 
 def driveUsingDistanceSensor(setpoint,duration):
+    maxSpeed = 100
+    k = 1
     # reset the timer
     brain.timer_reset()
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
         # Your code goes here!
-        
+        currentXLocation = location.position(X,MM)
+        error = (900-setpoint) - currentXLocation
+        output = k*error
+        # Ensure the output is not more than the maximum speed
+        if(output>maxSpeed):
+            output = maxSpeed
+        elif(output<-maxSpeed):
+            output = -maxSpeed
+        brain.print(output)
+        brain.new_line()
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(output,PERCENT)
 
 
 
@@ -84,4 +123,3 @@ def main():
     driveUsingDistanceSensor(200,5)
 # VR threads — Do not delete
 vr_thread(main())
-
