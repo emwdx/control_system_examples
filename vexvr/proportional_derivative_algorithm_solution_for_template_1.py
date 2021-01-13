@@ -3,9 +3,9 @@ from random import randint
 
 
 def proportionalDerivativeControlX(setpoint,duration):
-    maxSpeed = 100
+    maxSpeed = 250
     k = 3
-    kD = 3
+    kD = 1.5
     oldError = 0
 
     # reset the timer
@@ -34,9 +34,9 @@ def proportionalDerivativeControlX(setpoint,duration):
     drivetrain.stop()
 
 def proportionalDerivativeControlY(setpoint,duration):
-    maxSpeed = 100
+    maxSpeed = 250
     k = 3
-    kD = 3
+    kD = 1.5
     oldError = 0
 
     # reset the timer
@@ -65,9 +65,9 @@ def proportionalDerivativeControlY(setpoint,duration):
     drivetrain.stop()
 
 def proportionalDerivativeControlDiagonal(setpoint,duration):
-    maxSpeed = 100
+    maxSpeed = 250
     k = 3
-    kD = 3
+    kD = 1.5
     oldError = 0
 
     # reset the timer
