@@ -73,11 +73,12 @@ def driveDiagDistance(setpoint,duration):
 
 # Add project code in "main"
 def main():
+    drivetrain.set_drive_velocity(80, PERCENT)
     pen.move(DOWN)
     drivetrain.turn_to_heading(90,DEGREES,wait=True)
-    driveXDistance(0,4)
+    driveXDistance(0,3)
     drivetrain.turn_to_heading(0,DEGREES,wait=True)
-    driveYDistance(0,4)
+    driveYDistance(0,3)
     drivetrain.turn_to_heading(45,DEGREES,wait=True)
     driveDiagDistance(400,4)
 # VR threads — Do not delete
