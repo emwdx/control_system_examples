@@ -1,0 +1,109 @@
+# This is code is built based on emwdx's module
+from math import *
+from random import randint
+
+def generateRandomPoint():
+    xCoordinate = randint(-4,8)*100
+    yCoordinate = randint(-4,8)*100
+    return [xCoordinate,yCoordinate]
+def driveXDistance(setpoint,duration):
+    # reset the timer
+    brain.timer_reset()
+    maxspeed = 100
+    minspeed = -100
+    k = 1
+    kD = 0.5
+    old_error = 0
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        # Your code goes here!
+        x_location = location.position(X, MM)
+        error = setpoint - x_location
+        error_change = error - old_error
+        speed = error - error_change
+        old_error = error
+        if speed > maxspeed:
+            speed = maxspeed
+        elif speed < minspeed:
+            speed = minspeed
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(speed, PERCENT)
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+def driveYDistance(setpoint,duration):
+    # reset the timer
+    brain.timer_reset()
+    maxspeed = 100
+    minspeed = -100
+    k = 1
+    kD = 0.5
+    old_error = 0
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        # Your code goes here!
+        y_location = location.position(Y, MM)
+        error = setpoint - y_location
+        error_change = error - old_error
+        speed = error - error_change
+        old_error = error
+        if speed > maxspeed:
+            speed = maxspeed
+        elif speed < minspeed:
+            speed = minspeed
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(speed, PERCENT)
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+
+def driveUsingDistanceSensor(setpoint,duration):
+    # reset the timer
+    brain.timer_reset()
+    maxspeed = 100
+    minspeed = -100
+    k = 1
+    kD = 0.5
+    old_error = 0
+
+    # loop while the timer is less than the duration input of the function.
+    while(brain.timer_time(SECONDS)<duration):
+        # Your code goes here!
+        wall_distance = distance.get_distance(MM)
+        x_location = location.position(X, MM)
+        error = wall_distance - 200
+        error_change = error - old_error
+        speed = error - error_change
+        old_error = error
+
+        if speed > maxspeed:
+            speed = maxspeed
+        elif speed < minspeed:
+            speed = minspeed
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(speed, PERCENT)
+
+
+        #VEXCode VR requires that we have a small pause in any loop we run.    
+        wait(1,MSEC)
+    drivetrain.stop()
+
+# Add project code in "main"
+def main():
+    # You should not change much in the code below. This code chooses a random point, puts the pen down,
+    # and then calls the above functions to move to the point, turn to face the right wall, and then move the specified distance away.
+    target = generateRandomPoint()
+    brain.print("target location is x = ( " + str(target[0]) + " , " + str(target[1]) + " )" )
+    pen.move(DOWN)
+    drivetrain.turn_to_heading(90,DEGREES,wait=True)
+    driveXDistance(target[0],4)
+    drivetrain.turn_to_heading(0,DEGREES,wait=True)
+    driveYDistance(target[1],4)
+    drivetrain.turn_to_heading(90,DEGREES,wait=True)
+    driveUsingDistanceSensor(200,5)
+# VR threads — Do not delete
+vr_thread(main())
