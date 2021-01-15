@@ -5,16 +5,18 @@ def driveXDistance(setpoint,duration):
     # reset the timer
     setpoint = 0
     speed = 100
+    tolerance = 2
+    # reset the timer
     brain.timer_reset()
     drivetrain.set_drive_velocity(speed, PERCENT)
+    # begin algorithm to drive straight to the position of y = 0
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
         currentXLocation = location.position(X,MM)
-        if(currentXLocation < setpoint):
+        if( currentXLocation < setpoint - tolerance):
             drivetrain.drive(FORWARD)
-        elif (currentXLocation > setpoint):
+        elif (currentXLocation > setpoint + tolerance):
             drivetrain.drive(REVERSE)
         else:
             drivetrain.stop()
@@ -26,17 +28,18 @@ def driveXDistance(setpoint,duration):
 def driveYDistance(setpoint,duration):
     setpoint = 0
     speed = 100
+    tolerance = 2
     # reset the timer
     brain.timer_reset()
     drivetrain.set_drive_velocity(speed, PERCENT)
+    # begin algorithm to drive straight to the position of y = 0
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
         currentYLocation = location.position(Y,MM)
-        if(currentYLocation < setpoint):
+        if( currentYLocation < setpoint - tolerance):
             drivetrain.drive(FORWARD)
-        elif (currentYLocation > setpoint):
+        elif (currentYLocation > setpoint + tolerance):
             drivetrain.drive(REVERSE)
         else:
             drivetrain.stop()
@@ -49,17 +52,18 @@ def driveYDistance(setpoint,duration):
 def driveDiagonalDistance(setpoint,duration):
     setpoint = 400
     speed = 100
+    tolerance = 2
     # reset the timer
     brain.timer_reset()
     drivetrain.set_drive_velocity(speed, PERCENT)
+    # begin algorithm to drive straight to the position of y = 0
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
         currentYLocation = location.position(Y,MM)
-        if(currentYLocation < setpoint):
+        if( currentYLocation < setpoint - tolerance):
             drivetrain.drive(FORWARD)
-        elif (currentYLocation > setpoint):
+        elif (currentYLocation > setpoint + tolerance):
             drivetrain.drive(REVERSE)
         else:
             drivetrain.stop()
