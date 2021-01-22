@@ -52,17 +52,10 @@ def driveDiagDistance(setpoint,duration):
     while(brain.timer_time(SECONDS)<duration):
         # Your code goes here!
         currentXLocation = location.position(X,MM)
-        if(currentXLocation < setpoint):
-            drivetrain.drive(FORWARD)
-        elif (currentXLocation > setpoint):
-            drivetrain.drive(REVERSE)
-        else:
-            drivetrain.stop()
-
         currentYLocation = location.position(Y,MM)
-        if(currentYLocation < setpoint):
+        if (currentXLocation < setpoint and currentYLocation < setpoint):
             drivetrain.drive(FORWARD)
-        elif (currentYLocation > setpoint):
+        elif (currentXLocation > setpoint and currentYLocation > setpoint):
             drivetrain.drive(REVERSE)
         else:
             drivetrain.stop()
