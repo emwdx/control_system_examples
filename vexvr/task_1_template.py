@@ -6,14 +6,14 @@ def driveXDistance(setpoint,duration):
     k = 1
     brain.timer_reset()
 
-    while(brain.timer_time(SECONDS)<duration):
+    while(brain.timer_time(SECONDS) < duration):
         currentXLocation = location.position(X,MM)
         error = setpoint - currentXLocation
         output = k*error
-        if(output>maxSpeed):
+        if(output > maxSpeed):
             output = maxSpeed
-        elif(output<-maxSpeed):
-            output = -maxSpeed
+        elif(output < - maxSpeed):
+            output = - maxSpeed
         brain.print(output)
         brain.new_line()
         drivetrain.drive(FORWARD)
@@ -30,14 +30,14 @@ def driveYDistance(setpoint,duration):
     k = 1
     brain.timer_reset()
 
-    while(brain.timer_time(SECONDS)<duration):
+    while(brain.timer_time(SECONDS) < duration):
         currentYLocation = location.position(Y,MM)
         error = setpoint - currentYLocation
         output = k*error
-        if(output>maxSpeed):
+        if(output > maxSpeed):
             output = maxSpeed
-        elif(output<-maxSpeed):
-            output = -maxSpeed
+        elif(output < - maxSpeed):
+            output = - maxSpeed
         brain.print(output)
         brain.new_line()
         drivetrain.drive(FORWARD)
@@ -55,31 +55,20 @@ def driveDiagDistance(setpoint,duration):
     k = 1
     brain.timer_reset()
 
-    while(brain.timer_time(SECONDS)<duration):
+    while(brain.timer_time(SECONDS) < duration):
         currentXLocation = location.position(X,MM)
-        error = setpoint - currentXLocation
-        output = k*error
-        if(output>maxSpeed):
-            output = maxSpeed
-        elif(output<-maxSpeed):
-            output = -maxSpeed
-        brain.print(output)
-        brain.new_line()
-        drivetrain.drive(FORWARD)
-        drivetrain.set_drive_velocity(output,PERCENT)
-
         currentYLocation = location.position(Y,MM)
-        error = setpoint - currentYLocation
+        error = setpoint*2 - currentXLocation - currentYLocation
         output = k*error
         if(output>maxSpeed):
             output = maxSpeed
-        elif(output<-maxSpeed):
-            output = -maxSpeed
+        elif(output < - maxSpeed):
+            output = - maxSpeed
         brain.print(output)
         brain.new_line()
         drivetrain.drive(FORWARD)
         drivetrain.set_drive_velocity(output,PERCENT)
-   
+        
         wait(1,MSEC)
     drivetrain.stop()
 
