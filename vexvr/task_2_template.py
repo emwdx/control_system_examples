@@ -5,44 +5,48 @@ def generateRandomPoint():
     xCoordinate = randint(-4,8)*100
     yCoordinate = randint(-4,8)*100
     return [xCoordinate,yCoordinate]
+
 def driveXDistance(setpoint,duration):
-    # reset the timer
+    maxSpeed = 100
+    k = 1
     brain.timer_reset()
 
-    # loop while the timer is less than the duration input of the function.
-    while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
-        
-
-
-
-
-
-
-
-
-
-        #VEXCode VR requires that we have a small pause in any loop we run.    
+    while(brain.timer_time(SECONDS) < duration):
+        currentXLocation = location.position(X,MM)
+        error = setpoint - currentXLocation
+        output = k*error
+        if(output > maxSpeed):
+            output = maxSpeed
+        elif(output < - maxSpeed):
+            output = - maxSpeed
+        brain.print(output)
+        brain.new_line()
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(output,PERCENT)
+        # Set the direction of movement
         wait(1,MSEC)
     drivetrain.stop()
 
+    
 def driveYDistance(setpoint,duration):
     # reset the timer
+    maxSpeed = 100
+    k = 1
     brain.timer_reset()
 
-    # loop while the timer is less than the duration input of the function.
-    while(brain.timer_time(SECONDS)<duration):
-        # Your code goes here!
-        
-
-
-
-
-
-
-
-
-
+    while(brain.timer_time(SECONDS) < duration):
+        currentYLocation = location.position(Y,MM)
+        error = setpoint - currentYLocation
+        output = k*error
+        if(output > maxSpeed):
+            output = maxSpeed
+        elif(output < - maxSpeed):
+            output = - maxSpeed
+        brain.print(output)
+        brain.new_line()
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(output,PERCENT)
+        # Set the direction of movement
         #VEXCode VR requires that we have a small pause in any loop we run.    
         wait(1,MSEC)
     drivetrain.stop()
@@ -50,21 +54,23 @@ def driveYDistance(setpoint,duration):
 
 def driveUsingDistanceSensor(setpoint,duration):
     # reset the timer
+    maxSpeed = 100
+    k = 1
     brain.timer_reset()
 
     # loop while the timer is less than the duration input of the function.
     while(brain.timer_time(SECONDS)<duration):
         # Your code goes here!
-        
-
-
-
-
-
-
-
-
-
+        distanceToRight = distance.get_distance(MM) - 200
+        output = distanceToRight*k
+        if(output > maxSpeed):
+            output = maxSpeed
+        elif(output < - maxSpeed):
+            output = - maxSpeed
+        brain.print(output)
+        brain.new_line()
+        drivetrain.drive(FORWARD)
+        drivetrain.set_drive_velocity(output,PERCENT)
         #VEXCode VR requires that we have a small pause in any loop we run.    
         wait(1,MSEC)
     drivetrain.stop()
