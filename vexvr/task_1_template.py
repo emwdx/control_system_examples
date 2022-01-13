@@ -59,7 +59,7 @@ def driveYDistance(setpoint,duration):
     drivetrain.stop()
 
 
-def driveDiagonalDistance(setpoint,duration):
+def driveDiagDistance(setpoint,duration):
     # reset the timer
     brain.timer_reset()
 
