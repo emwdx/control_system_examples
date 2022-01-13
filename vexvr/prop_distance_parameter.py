@@ -11,6 +11,18 @@
 from vexcode import *
 
 
+drivetrain = Drivetrain()
+magnet = Electromagnet("magnet", 0)
+pen = Pen()
+brain = Brain()
+left_bumper = Bumper("leftBumper", 1)
+right_bumper = Bumper("rightBumper", 2)
+distance = Distance()
+front_eye = EyeSensor("fronteye", 3)
+down_eye = EyeSensor("downeye", 4)
+location = Location()
+
+
 def driveXDistance(setpoint,duration):
   
     maxSpeed = 100
